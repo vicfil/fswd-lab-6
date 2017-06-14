@@ -32,6 +32,12 @@ describe('/users', function() {
       .expect(200);
   });
 
+  it('should have a /logout page', function() {
+    return agent
+      .get('/users/logout')
+      .expect(200);
+  });
+
   // describe('when a user exists', function() {
   //   var user;
   //   beforeEach(function() {
