@@ -1,0 +1,11 @@
+extends ./layout.pug
+block header
+  
+  
+block body
+  h1 Registration Page!
+  
+  form.form-inline(method="POST" action="/register")
+    div.form-group
+      input.form-control(type="text" name="todo")
+    button#add.btn.btn-default Add Todo
