@@ -1,0 +1,13 @@
+extends ../layout.pug
+block header
+  
+  
+block body
+  h1 Registration Page!
+  
+  form.form-inline(method="POST" action="/register")
+    div.form-group
+      input.form-control(type="text" name="username")
+      input.form-control(type="text" name="password")
+      input.form-control(type="text" name="password_confirm")
+    button#add.btn.btn-default Register
