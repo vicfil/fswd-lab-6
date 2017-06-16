@@ -12,6 +12,8 @@ var request = require('supertest').agent;
 describe('/users', function() {
   var agent;
 
+var models = require('../../models');
+
   beforeEach(function() {
     agent = request(server);
   });
@@ -38,29 +40,31 @@ describe('/users', function() {
       .expect(200);
   });
 
-  // describe('when a user exists', function() {
-  //   var user;
-  //   beforeEach(function() {
-  //     return User.create({ username: 'MyFancyUsername',
-  //                         password: 'MyFancyPassword' })
-  //             .then(function(u) {
-  //               user = u;
-  //             });
-  //   });
-  //
-  //   it('should do …', function() {
-  //     console.log("User ID is " + user.id);
-  //     return agent
-  //       .post('/users/register')
-  //       .type('form')
-  //       .send({
-  //         username: 'MyFancyUsername',
-  //         password: 'MyFancyPassword',
-  //         password_confirm: 'MyFancyPassword'
-  //       })
-  //       .expect(200, /That username already exists\./);
-  //   });
-  //
-  // });
+
+
+  describe('when a user exists', function() {
+    var user;
+    beforeEach(function() {
+      return models.User.create({ username: 'MyFancyUsername',
+                          password: 'MyFancyPassword' })
+              .then(function(u) {
+                user = u;
+              });
+    });
+
+    it('should show an error that the username already exists', function() {
+      console.log("User ID is " + user.id);
+      return agent
+        .post('/users/register')
+        .type('form')
+        .send({
+          username: 'MyFancyUsername',
+          password: 'MyFancyPassword',
+          password_confirm: 'MyFancyPassword'
+        })
+        .expect(200, /That username already exists\./);
+    });
+
+  });
 
 });

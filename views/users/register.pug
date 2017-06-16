@@ -5,7 +5,10 @@ block header
 block body
   h1 Registration Page!
   
-  form.form-inline(method="POST" action="/register")
+  if message
+    em #{message}
+  
+  form.form-inline(method="POST" action="/users/register")
     div.form-group
       input.form-control(type="text" name="username")
       input.form-control(type="text" name="password")
