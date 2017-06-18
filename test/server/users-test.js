@@ -8,11 +8,12 @@ var server = require('../../lib/server');
 // libraries
 var request = require('supertest').agent;
     // User = require('../../models').User;
+var models = require('../../models');
 
 describe('/users', function() {
   var agent;
 
-var models = require('../../models');
+
 
   beforeEach(function() {
     agent = request(server);
@@ -40,11 +41,13 @@ var models = require('../../models');
       .expect(200);
   });
 
-
+  });
 
   describe('when a user exists', function() {
     var user;
+    var agent;
     beforeEach(function() {
+      agent = request(server);
       return models.User.create({ username: 'MyFancyUsername',
                           password: 'MyFancyPassword' })
               .then(function(u) {
@@ -60,11 +63,21 @@ var models = require('../../models');
         .send({
           username: 'MyFancyUsername',
           password: 'MyFancyPassword',
-          password_confirm: 'MyFancyPassword'
+          passwordConfirm: 'MyFancyPassword'
         })
         .expect(200, /That username already exists\./);
     });
 
+  it('should show an error that the password confirmation doesn\'t match', function() {
+    console.log("User ID is " + user.id);
+    return agent
+      .post('/users/register')
+      .type('form')
+      .send({
+        username: 'MyFancyUsername',
+        password: 'MyFancyPassword',
+        passwordConfirm: 'MyFancypassword'
+      })
+      .expect(200, /Your password confirmation does not match\./);
+    });
   });
-
-});
