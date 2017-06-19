@@ -1,0 +1,18 @@
+extends ../layout.pug
+block header
+  
+  
+block body
+  h1 Log Out Page!
+  
+  if message
+    em #{message}
+
+  if !loggedInUser.username
+    em You have been logged out.
+    a(href="/users/login") Log In
+
+  if loggedInUser.username
+    em You are logged in, #{loggedInUser.username}.
+    a(href="/users/logout") Log Out
+  

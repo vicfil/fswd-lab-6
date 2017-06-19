@@ -1,0 +1,23 @@
+extends ../layout.pug
+block header
+  
+  
+block body
+  h1 Login Page!
+  
+  if message
+    em #{message}
+
+  if !loggedInUser.username
+    form.form-inline(method="POST" action="/users/login")
+      div.form-group
+        input.form-control(type="text" name="username")
+        input.form-control(type="text" name="password")
+      button#add.btn.btn-default Register
+
+  if loggedInUser.username
+    em You are logged in, #{loggedInUser.username}.
+    a(href="/users/logout") logout
+  
+  |Not yet registered?
+  a(href="/users/register") Register

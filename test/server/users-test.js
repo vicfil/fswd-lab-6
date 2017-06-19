@@ -80,4 +80,15 @@ describe('/users', function() {
       })
       .expect(200, /Your password confirmation does not match\./);
     });
+  it('should show an error that the password confirmation doesn\'t match', function() {
+    console.log("User ID is " + user.id);
+    return agent
+      .post('/users/login')
+      .type('form')
+      .send({
+        username: 'MyFancyUsername',
+        password: 'MyFancyPassword',
+      })
+      .expect(200, /Welcome back, \./);
+    });
   });
